@@ -50,20 +50,13 @@
 
                 <li>
                   <a href="product.html">Shop</a>
-				<ul class="sub-menu">
-                    <li><a href="index.html">Fashion men&women</a></li>
-                    <li><a href="#">Patron Design</a></li>
-                    <li><a href="#">Children's Fashion</a></li>
-                </ul>
+
                 </li>
 
                 <li class="label1" data-label1="checkout">
                   <a href="shoping-cart.html">cart</a>
                 </li>
 
-                <li>
-                  <a href="blog.html">Blog</a>
-                </li>
 
                 <li>
                   <a href="about.html">About</a>
@@ -86,8 +79,8 @@
 </div>
               </div>
 
-              <a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
-                <i class="zmdi zmdi-favorite-outline"></i>
+              <a href="wishPage.html" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
+                <i class="zmdi zmdi-favorite-outline" id="icon-favLen"></i>
               </a>
             </div>
           </nav>
@@ -112,8 +105,8 @@
 </div>
           </div>
 
-          <a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti" data-notify="0">
-            <i class="zmdi zmdi-favorite-outline"></i>
+          <a href="wishPage.html" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti" data-notify="0">
+            <i class="zmdi zmdi-favorite-outline" id="icon-favLen"></i>
           </a>
         </div>
 
@@ -135,23 +128,10 @@
 
           <li>
             <a href="product.html">Shop</a>
-                        <ul class="sub-menu-m">
-              <li><a href="index.html">Fashion men&women</a></li>
-              <li><a href="#">Patron Design</a></li>
-              <li><a href="#">Children's Fashion</a></li>
-            </ul>
-            <span class="arrow-main-menu-m">
-              <i class="fa fa-angle-right" aria-hidden="true"></i>
-            </span>
-
           </li>
 
           <li>
             <a href="shoping-cart.html" class="label1 rs1" data-label1="checkout">cart</a>
-          </li>
-
-          <li>
-            <a href="blog.html">Blog</a>
           </li>
 
           <li>
@@ -202,9 +182,9 @@
 
             <div class="header-cart-buttons flex-w w-full">
               <a href="shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10"> View cart </a>
-
               <a href="shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10"> Check Out </a>
-            </div>
+              <button class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10 w-100" id="Del-All">Delete All</button>
+            </div>          
           </div>
         </div>
       </div>
@@ -223,7 +203,7 @@
     </div>
 
     <!-- Shoping cart -->
-    <form class="bg0 p-t-75 p-b-85">
+    <form class="bg0 p-t-75 p-b-85" id="myForm">
       <div class="container">
         <div class="row">
           <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
@@ -259,7 +239,7 @@ function setChackout() {
         <td class="column-3" name="price-item">${dataChackoutAryy[i].price}</td>
         <td class="column-4">
           <div class="wrap-num-product flex-w m-l-auto m-r-0">
-            <input class="mtext-104 cl3 txt-center num-product w-100" type="number" name="num-product1" value="${dataChackoutAryy[i].quantity}" />
+            <input class="mtext-104 cl3 txt-center num-product w-100" type="number" name="num-product1" value="${dataChackoutAryy[i].quantity}" readonly/>
           </div>
         </td>
         <td class="column-5" name="total-item">${dataChackoutAryy[i].quantity * dataChackoutAryy[i].price}</td>
@@ -270,6 +250,15 @@ function setChackout() {
   console.log("Done")
 }
 setChackout();
+        function linfav() {
+    let datawishAryy2 = JSON.parse(localStorage.getItem("wishList"));
+    let  ingo = ''
+        for (let i = 0; i < datawishAryy2.length; i++) {
+            ingo = i + 1;
+        }
+      document.getElementById("icon-favLen").innerHTML = ingo
+    }
+    linfav();
                   </script>
                 </table>
               </div>
@@ -299,19 +288,35 @@ setChackout();
                   <p class="stext-111 cl6 p-t-2">There are no shipping methods available. Please double check your address, or contact us if you need any help.</p>
 
                   <div class="p-t-15">
-                    <span class="stext-112 cl8"> Calculate Shipping </span>
+                    <span class="stext-112 cl8" id="label"> Calculate Shipping </span>
 
+                    
+                    <div class="bor8 bg0 m-b-22">
+                      <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" onpaste="return false" name="name" placeholder="name" required/>
+                    </div>
+
+                    <div class="bor8 bg0 m-b-22">
+                      <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="tel"  min-length="11" onpaste="return false" name="number" placeholder="number / phone" required/>
+                    </div>
                     <div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
-                      <select class="js-select2" name="time">
+                      <select class="js-select2" name="time" required>
                         <option disabled>Select a country...</option>
                         <option>Egypt</option>
                         <option>UK</option>
                       </select>
                       <div class="dropDownSelect2"></div>
                     </div>
-
+                     <style>
+                      #label::first-letter{
+ font-size: 3em;
+ float: left;
+ margin-right: 10px;
+ line-height: 0.8em;
+ font-weight: bold;
+}
+                     </style>
                     <div class="bor8 bg0 m-b-12">
-                      <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="state" placeholder="State /  country" />
+                      <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="state" placeholder="State /  country" required/>
                     </div>
 
                     <div class="bor8 bg0 m-b-22">
@@ -320,6 +325,11 @@ setChackout();
                   </div>
                 </div>
               </div>
+             
+                    <div class="d-flex mt-1" style="width: 100%;">
+                      <input class="form-controle mr-4" type="checkbox" form="myForm" name="pop-system" required/>
+                      <p style="font-weight: bolder;color: grey;font-size: 12px;">انا اوافق على <a href="pop-system.html" target="_blank" rel="noopener noreferrer">سياسة و الخصوصية</a></p>
+                    </div>
 
               <div class="flex-w flex-t p-t-27 p-b-33">
                 <div class="size-208">
@@ -330,20 +340,26 @@ setChackout();
                   <span class="mtext-110 cl2" id="total-shoping2" name="checkout-item"></span>
                 </div>
               </div>
-            <script>
-              
+            <script>      
 function setTotal() {
   let dataChackoutAryy2 = JSON.parse(localStorage.getItem("datacart"));
   let total = 0;
+  let imojy = '&#129297;'
   for (let i = 0; i < dataChackoutAryy2.length; i++) {
     total += dataChackoutAryy2[i].total 
   }
-  document.getElementById("total-shoping").innerHTML = `E.L ${total}`;
-  document.getElementById("total-shoping2").innerHTML = `E.L ${total}`;
+    if (total == 0) {
+    imojy = "&#129298;";
+  }
+  document.getElementById("total-shoping").innerHTML = `E.L ${total} ${imojy}`;
+  document.getElementById("total-shoping2").innerHTML = `E.L ${total} ${imojy}`;
   console.log("Done");
 }setTotal();
+function clr(){
+  document.getElementById("tbodyyy").innerHTML = ''
+}
             </script>
-              <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">Checkout</button>
+              <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" onclick="clr()">Checkout</button>
             </div>
           </div>
         </div>
@@ -367,9 +383,7 @@ function setTotal() {
               <li class="p-b-10">
                 <a href="shoping-cart.html" class="stext-107 cl7 hov-cl1 trans-04"> cart </a>
               </li>
-              <li class="p-b-10">
-                <a href="blog.html" class="stext-107 cl7 hov-cl1 trans-04"> Blog </a>
-              </li>
+
               <li class="p-b-10">
                 <a href="about.html" class="stext-107 cl7 hov-cl1 trans-04"> About us </a>
               </li>
