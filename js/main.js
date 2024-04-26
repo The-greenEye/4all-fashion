@@ -282,7 +282,7 @@ async function getApi() {
     const data = await response.json();
     loopApi(data);
   } catch (error) {
-    console.error("Error fetching data from API:", error);
+    console.log("Error Get data: your internet it's slow please check your internet an try agine " + error);
   }
 }
 getApi();
@@ -291,9 +291,9 @@ function loopApi(p) {
 
   for (let i = 0; i < p.length; i++) {
     productAryy += `
-      <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+      <div class="col-sm-6 col-md-4 col-lg-3 m-0 p-b-35 isotope-item women">
         <div class="block2">
-          <div class="block2-pic hov-img0" style="height: 350px; width: 100%">
+          <div class="block2-pic hov-img0 p-5" style="height: 400px; width: 100%">
             <img src="${p[i].image}" style="object-fit: cover;" alt="IMG-PRODUCT" />
             <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1" onclick="getApiLinknum(${i + 1})"> Quick View </a>
           </div>
@@ -303,7 +303,7 @@ function loopApi(p) {
               <span class="stext-105 cl3">E.L ${p[i].price} </span>
             </div>
             <div class="block2-txt-child2 flex-r p-t-3">
-              <img class="icon-heart1 dis-block trans-04" onclick="onChangeColor(this)" style="cursor:pointer;" src="images/icons/icon-heart-01.png" alt="ICON" />
+              <img class="icon-heart1 dis-block trans-04" onclick="getwish(${i + 1},this)" style="cursor:pointer;" src="images/icons/icon-heart-01.png" alt="ICON" />
             </div>
           </div>
         </div>
@@ -323,13 +323,6 @@ function onCloseModal() {
   document.querySelector(".wrap-modal1").style.overflow = "hidden";
   document.querySelector(".wrap-modal1").style.visibility = "hidden";
   document.querySelector(".wrap-modal1").style.height = "0";
-}
-
-function onChangeColor(id) {
-  id.animate([{ transform: "rotate(0deg)" }, { transform: "rotate(360deg)" }], {
-    duration: 1000,
-    iterations: Infinity,
-  });
 }
 
 function getApiLinknum(numb) {
@@ -388,12 +381,9 @@ function loopApiLink(pl) {
               <div class="p-r-50 p-t-5 p-lr-0-lg">
                 <h4 class="mtext-105 cl2 js-name-detail p-b-14">${pl.title}</h4>
                    <br />
-                <span class="mtext-106 cl2"> ${pl.price} </span>
+                <span class="mtext-106 cl2">E.L ${pl.price} </span>
                  <br />
-                <button class="btn btn-outline-dark mt-4" type="button" data-toggle="collapse" data-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
-                     hide description
-                </button>
-                <br />
+
                 <p class="stext-102 cl3 p-t-23" id="collapseWidthExample">${pl.description}</p>
 
                 <!--  -->
@@ -506,64 +496,65 @@ function addTocart(product) {
 
   datacart.push(productObj);
   localStorage.setItem("datacart", JSON.stringify(datacart));
-
-  const cartList = datacart
-    .map(
-      (item) => `
-      <li class="header-cart-item flex-w flex-t m-b-12" id="${item.id}">
+  let items = "";
+  for (let i = 0; i < datacart.length; i++) {
+    items += `      
+    <li class="header-cart-item flex-w flex-t m-b-12" id="${datacart[i].idom}">
         <div class="header-cart-item-img">
-          <img src="${item.image}" alt="IMG" onclick="deletecart(${item.id})" />
+          <img src="${datacart[i].image}" alt="IMG"/>
         </div>
         <div class="header-cart-item-txt p-t-8">
-          <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">${item.title}</a>
-          <span class="header-cart-item-info">${item.quantity} x E.L ${item.price}</span>
+          <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04" id="${datacart[i].idom}">${datacart[i].title}</a>
+          <span class="header-cart-item-info">${datacart[i].quantity} x E.L ${datacart[i].price}</span>
         </div>
       </li>
-    `
-    )
-    .join("");
-
-  document.getElementById("cart-list").innerHTML = cartList;
-  document.getElementById("success").animate(
-    [
-      {display: "block"},
-      { opacity: 0 },
-      { opacity: 0.1 },
-      { opacity: 0.2 },
-      { opacity: 0.3 },
-      { opacity: 0.4 },
-      { opacity: 0.5 },
-      { opacity: 0.6 },
-      { opacity: 0.7 },
-      { opacity: 0.8 },
-      { opacity: 0.9 },
-      { opacity: 1 }
-    ], {
-    duration: 3000,
-    iterations: 1,
-  });
+      `;
+  }
+  document.getElementById("cart-list").innerHTML = items;
+  location.reload();
   lenCart();
   changeTotal();
   localnumber();
   setChackout();
 }
-
-  
+window.onload = function () {
+  let conyyt = JSON.parse(localStorage.getItem("datacart"));
+  let itemo = "";
+  for (let i = 0; i < conyyt.length; i++) {
+    itemo += `      
+    <li class="header-cart-item flex-w flex-t m-b-12" id="BcR75Hg7d${conyyt[i].idom}">
+        <div class="header-cart-item-img">
+          <img src="${conyyt[i].image}" alt="IMG" />
+        </div>
+        <div class="header-cart-item-txt p-t-8">
+          <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">${conyyt[i].title}</a>
+          <span class="header-cart-item-info">${conyyt[i].quantity} x E.L ${conyyt[i].price}</span>
+        </div>
+      </li>
+      `;
+  }
+  document.getElementById("cart-list").innerHTML = itemo;
+  addTocart();
+};
 function localnumber(e) {
+  if (e <= 0) {
+      datacart = [];
+      alert("Your value is null please set your value and try agin");
+  } else {
+    
+    }
   localStorage.setItem("quantity", e);
   addTocart();
 }
-
-document.getElementById("Del-All").onclick = function () {
-  datacart = [];
-  document.getElementById("cart-list").innerHTML = "";
-  localStorage.setItem("datacart", JSON.stringify(datacart));
-  changeTotal();
-  lenCart();
-  localnumber();
-  setChackout();
-};
-
+  document.getElementById("Del-All").onclick = function () {
+    datacart = [];
+    document.getElementById("cart-list").innerHTML = "";
+    localStorage.setItem("datacart", JSON.stringify(datacart));
+    changeTotal();
+    lenCart();
+    localnumber();
+    setChackout();
+  };
 function lenCart() {
   document.getElementById("icon-cart-length").innerHTML = datacart.length;
   document.getElementById("icon-cart-length-mobail").innerHTML = datacart.length;
@@ -578,18 +569,19 @@ function changeTotal() {
   for (let i = 0; i < datacart.length; i++) {
     total += datacart[i].total;
   }
-  if(total == 0){
+  if (total == 0) {
     imojy = "&#129298;";
   }
   document.getElementById("total").innerHTML = "Total : E.L  " + total + "  " + imojy;
-}changeTotal();
+}
+changeTotal();
 
 // End Add To cart
 document.body.oncontextmenu = function () {
-    alert("Sorry, we are not available for this function");
-    return false;
+  alert("Sorry, we are not available for this function");
+  return false;
 };
-  
+
 //Search Bar
 // تعريف قائمة لتخزين البيانات
 let searchAryy = [];
@@ -614,7 +606,7 @@ function pushAryySearch(ser) {
 // دالة البحث والتصفية استنادًا إلى قيمة البحث
 function searchBar(val) {
   // قائمة لتخزين العناصر المطابقة
-  let filteredData = '';
+  let filteredData = "";
 
   // البحث في البيانات ومقارنتها بقيمة البحث
   for (let i = 0; i < searchAryy.length; i++) {
@@ -639,8 +631,7 @@ function searchBar(val) {
           </div>
         </div>
       `;
-    }
-    else {
+    } else {
     }
   }
 
@@ -648,42 +639,34 @@ function searchBar(val) {
   console.log("النتائج المطابقة:");
   document.getElementById("cartona-Products").innerHTML = filteredData;
 }
-// استدعاء مثال لوظيفة البحث
-
 // End Search Bar
+// Add Wish List
+let wishAryy = [];
+if (localStorage.wishList != null) {
+  wishAryy = JSON.parse(localStorage.getItem("wishList"));
+} else {
+  wishAryy = [];
+}
+function getwish(wi,ty) {
+  async function wishApi() {
+    let wish1 = await fetch(`https://fakestoreapi.com/products/${wi}`);
+    let wish2 = await wish1.json();
+    addwishList(wish2);
+  }
+  wishApi();
+}
+function addwishList(wipro) {
+  let wishOpject = {
+    img: wipro.image,
+    title: wipro.title,
+    price: wipro.price,
+  };
+  wishAryy.push(wishOpject);
 
+  localStorage.setItem("wishList", JSON.stringify(wishAryy));
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  location.reload();
+}
 
 // Blur Website
 let titleDoc = document.title;
