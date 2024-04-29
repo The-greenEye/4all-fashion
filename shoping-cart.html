@@ -212,10 +212,12 @@
                 <table class="table-shopping-cart">
                   <tr class="table_head">
                     <th class="column-1">Product</th>
-                    <th class="column-2"></th>
-                    <th class="column-3">Price</th>
-                    <th class="column-4">Quantity</th>
-                    <th class="column-5">Total</th>
+                    <th class="column-3"></th>
+                    <th class="column-4">Price</th>
+                    <th class="column-3"></th>
+                    <th class="column-5">Size</th>
+                    <th class="column-4">Color</th>
+                    <th class="column-1">Total</th>
                   </tr>
                   <tbody id="tbodyyy">
                    
@@ -235,14 +237,12 @@ function setChackout() {
             <img src="${dataChackoutAryy[i].image}" alt="IMG" name="img-item" />
           </div>
         </td>
-        <td class="column-2" name="title-item">${dataChackoutAryy[i].title.slice(0, 20)}</td>
-        <td class="column-3" name="price-item">${dataChackoutAryy[i].price}</td>
-        <td class="column-4">
-          <div class="wrap-num-product flex-w m-l-auto m-r-0">
-            <input class="mtext-104 cl3 txt-center num-product w-100" type="number" name="num-product1" value="${dataChackoutAryy[i].quantity}" readonly/>
-          </div>
-        </td>
-        <td class="column-5" name="total-item">${dataChackoutAryy[i].quantity * dataChackoutAryy[i].price}</td>
+        <td class="column-0" name="title-item">${dataChackoutAryy[i].title.slice(0, 20)}</td>
+        <td class="column-4" name="price-item">${dataChackoutAryy[i].price}</td>
+        <td class="column-3"></td>
+        <td class="column-5" name="color-item">${dataChackoutAryy[i].size}</td>
+        <td class="column-4" name="size-item">${dataChackoutAryy[i].color}</td>
+        <td class="column-1" name="total-item">${dataChackoutAryy[i].quantity } * ${dataChackoutAryy[i].price}</td>
       </tr>
     `;
   }
@@ -453,7 +453,7 @@ function clr(){
         <div class="p-t-40">
           <div class="flex-c-m flex-w p-b-18">
             <a href="#" class="m-all-1">
-              <img src="images/icons/icon-pay-01.png" alt="ICON-PAY" />
+              <img src="images/icons/icon-pay-01.png" loading="lazy" alt="ICON-PAY" />
             </a>
 
             <a href="#" class="m-all-1">
