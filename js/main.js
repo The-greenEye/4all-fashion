@@ -282,7 +282,7 @@ async function getApi() {
     const data = await response.json();
     loopApi(data);
   } catch (error) {
-    alert("Error Get data: your internet it's slow please check your internet an try agine " + error);
+    console.log("Error Get data: your internet it's slow please check your internet an try agine " + error);
   }
 }
 getApi();
@@ -295,7 +295,7 @@ function loopApi(p) {
         <div class="block2">
           <div class="block2-pic hov-img0 p-5" style="height: 400px; width: 100%">
             <img src="${p[i].image}" style="object-fit: cover;" loading="lazy" alt="IMG-PRODUCT" />
-            <header style="position: absolute;top: 0px;font-family: cursive;font-weight: bolder;left: 0px;padding: 3px;background-color: rgb(84, 197, 55);color: white;overflow: hidden;text-transform: capitalize;">${p[i].title.slice(0, 10)}</header>
+            <header style="position: absolute;top: 0px;font-family: cursive;font-weight: bolder;left: 0px;padding: 3px;background-color: rgb(84, 197, 55);color: white;overflow: hidden;text-transform: capitalize;">WITH ATLSKY</header>
             <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1" onclick="getApiLinknum(${i + 1})"> Quick View </a>
           </div>
           <div class="block2-txt flex-w flex-t p-t-14">
@@ -367,7 +367,7 @@ function loopApiLink(pl) {
                     <div class="item-slick3" data-thumb="${pl.image}">
                       <div class="wrap-pic-w pos-relative">
                         <img src="${pl.image}" alt="IMG-PRODUCT" />
-            <header style="position: absolute;top: 0px;font-family: cursive;font-weight: bolder;left: 0px;padding: 3px;background-color: rgb(84, 197, 55);color: white;overflow: hidden;text-transform: capitalize;">${pl.title.slice(0, 10)}</header>
+            <header style="position: absolute;top: 0px;font-family: cursive;font-weight: bolder;left: 0px;padding: 3px;background-color: rgb(84, 197, 55);color: white;overflow: hidden;text-transform: capitalize;">WITH ATLSKY</header>
                         <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" target="_blank" href="${pl.image}">
                           <i class="fa fa-expand"></i>
                         </a>
@@ -394,7 +394,7 @@ function loopApiLink(pl) {
 
                     <div class="size-204 respon6-next">
                       <div class="rs1-select2 bor8 bg0">
-                        <select class="js-select2" name="time">
+                        <select class="js-select2" name="time" onchange="selectsiz(this.value)">
                           <option>Choose an option</option>
                           <option>Size S</option>
                           <option>Size M</option>
@@ -411,7 +411,7 @@ function loopApiLink(pl) {
 
                     <div class="size-204 respon6-next">
                       <div class="rs1-select2 bor8 bg0">
-                        <select class="js-select2" name="time">
+                        <select class="js-select2" name="time" onchange="selectcolor(this.value)">
                           <option>Choose an option</option>
                           <option>Red</option>
                           <option>Blue</option>
@@ -484,12 +484,16 @@ async function addloopcart(uu) {
 
 function addTocart(product) {
   const quantity = localStorage.getItem("quantity");
+  const size = localStorage.getItem("size");
+  const color = localStorage.getItem("color");
   const total = product.price * quantity;
 
   const productObj = {
     idom: product.id,
     title: product.title,
     price: product.price,
+    size: size,
+    color: color,
     image: product.image,
     quantity: quantity,
     total: total,
@@ -539,6 +543,14 @@ window.onload = function () {
 };
 function localnumber(e) {
   localStorage.setItem("quantity", e);
+  addTocart();
+}
+function selectsiz(s) { 
+  localStorage.setItem("size", s);
+  addTocart();
+}
+function selectcolor(c) { 
+  localStorage.setItem("color", c);
   addTocart();
 }
   document.getElementById("Del-All").onclick = function () {
