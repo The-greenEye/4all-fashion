@@ -635,7 +635,7 @@ function searchBar(val) {
                 <span class="stext-105 cl3">E.L ${product.price} </span>
               </div>
               <div class="block2-txt-child2 flex-r p-t-3">
-                <img class="icon-heart1 dis-block trans-04" onclick="onChangeColor(this)" style="cursor:pointer;" src="images/icons/icon-heart-01.png" alt="ICON" />
+                <img class="icon-heart1 dis-block trans-04" onclick="onChangeColor(this)" style="cursor:pointer;" onclick="getwish(${i + 1},this)     src="images/icons/icon-heart-01.png" alt="ICON" />
               </div>
             </div>
           </div>
