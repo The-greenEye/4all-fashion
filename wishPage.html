@@ -218,14 +218,15 @@
                     <th></th>
                     <th class="column-2">price</th>
                     <th class="column-2"><button class="btn btn-outline-danger w-50" onclick="delolo()">Delete All</button></th>
+                    <th class="column-2">Quick Add</th>
                       </tr>   
                     </thead>
 
                   <tbody id="tbodyy">
-                   
+
                   </tbody>
-                  <script> 
-                      function WishList() {
+      <script> 
+    function WishList() {
       let datawishAryy = JSON.parse(localStorage.getItem("wishList"));
       let items = "";
       for (let i = 0; i < datawishAryy.length; i++) {
@@ -239,14 +240,25 @@
         <td class="column-3" name="title-item">${datawishAryy[i].title.slice(0, 20)}</td>
         <td></td>
         <td class="column-2 ml-0" name="price-item">${datawishAryy[i].price}</td>
+        <td class="column-2 ml-0" name="price-item" id="${datawishAryy[i].id}" onclick="getApiLinknum(this.id)" style="cursor:pointer;padding:0 0 0 45px">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" color="black" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+          <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+            <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+                </svg>
+        </td>
+        <td class="column-2 ml-0" name="price-item" id="${datawishAryy[i].id}" onclick="addloopcart(this.id)" style="cursor:pointer;padding:0 0 0 45px">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" color="green" fill="currentColor" class="bi bi-bag-plus-fill" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0M8.5 8a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V12a.5.5 0 0 0 1 0v-1.5H10a.5.5 0 0 0 0-1H8.5z"/>
+              </svg>
+        </td>
       </tr>
     `;
       }
       document.getElementById("tbodyy").innerHTML = items;
       linfav();
     }
-    WishList();  
-        function linfav() {
+    WishList(); 
+    function linfav() {
     let datawishAryy2 = JSON.parse(localStorage.getItem("wishList"));
     let  ingo = ''
         for (let i = 0; i < datawishAryy2.length; i++) {
@@ -398,6 +410,9 @@
       </span>
     </div>
 
+    <div class="wrap-modal1 js-modal1 p-t-60 p-b-20" id="shoping-modal">
+
+    </div>
     <!--===============================================================================================-->
     <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
     <!--===============================================================================================-->
