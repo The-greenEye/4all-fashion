@@ -288,14 +288,13 @@ async function getApi() {
 getApi();
 function loopApi(p) {
   let productAryy = "";
-
   for (let i = 0; i < p.length; i++) {
     productAryy += `
-      <div class="col-sm-6 col-md-4 col-lg-3 m-0 p-b-35 isotope-item women">
+      <div class="col-sm-6 col-md-4 col-lg-3 m-0 p-b-35 isotope-item women" id="Fashion">
         <div class="block2">
           <div class="block2-pic hov-img0 p-5" style="height: 400px; width: 100%">
             <img src="${p[i].image}" style="object-fit: cover;" loading="lazy" alt="IMG-PRODUCT" />
-            <header style="position: absolute;top: 0px;font-family: cursive;font-weight: bolder;left: 0px;padding: 3px;background-color: rgb(84, 197, 55);color: white;overflow: hidden;text-transform: capitalize;">WITH ATLSKY</header>
+            <header style="position: absolute;top: 0px;font-family: cursive;font-weight: bolder;left: 0px;padding: 3px;background-color: rgb(84, 197, 55);color: white;overflow: hidden;text-transform: capitalize;">Fashion</header>
             <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1" onclick="getApiLinknum(${i + 1})"> Quick View </a>
           </div>
           <div class="block2-txt flex-w flex-t p-t-14">
@@ -310,6 +309,7 @@ function loopApi(p) {
         </div>
       </div>`;
   }
+  
   document.getElementById("cartona-Products").innerHTML = productAryy;
 }
 
@@ -324,6 +324,7 @@ function onCloseModal() {
   document.querySelector(".wrap-modal1").style.overflow = "hidden";
   document.querySelector(".wrap-modal1").style.visibility = "hidden";
   document.querySelector(".wrap-modal1").style.height = "0";
+  location.reload()
 }
 
 function getApiLinknum(numb) {
@@ -367,7 +368,7 @@ function loopApiLink(pl) {
                     <div class="item-slick3" data-thumb="${pl.image}">
                       <div class="wrap-pic-w pos-relative">
                         <img src="${pl.image}" alt="IMG-PRODUCT" />
-            <header style="position: absolute;top: 0px;font-family: cursive;font-weight: bolder;left: 0px;padding: 3px;background-color: rgb(84, 197, 55);color: white;overflow: hidden;text-transform: capitalize;">WITH ATLSKY</header>
+            <header style="position: absolute;top: 0px;font-family: cursive;font-weight: bolder;left: 0px;padding: 3px;background-color: rgb(84, 197, 55);color: white;overflow: hidden;text-transform: capitalize;">Fashion</header>
                         <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" target="_blank" href="${pl.image}">
                           <i class="fa fa-expand"></i>
                         </a>
@@ -557,6 +558,7 @@ function selectcolor(c) {
     datacart = [];
     document.getElementById("cart-list").innerHTML = "";
     localStorage.setItem("datacart", JSON.stringify(datacart));
+    location.reload()
     changeTotal();
     lenCart();
     localnumber();
@@ -622,8 +624,9 @@ function searchBar(val) {
       filteredData += `
         <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
           <div class="block2">
-            <div class="block2-pic hov-img0" style="height: 350px; width: 100%">
+            <div class="block2-pic hov-img0 p-5" style="height: 400px; width: 100%">
               <img src="${product.image}" style="object-fit: cover;" alt="IMG-PRODUCT" />
+              <header style="position: absolute;top: 0px;font-family: cursive;font-weight: bolder;left: 0px;padding: 3px;background-color: rgb(84, 197, 55);color: white;overflow: hidden;text-transform: capitalize;">Fashion</header>
               <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1" onclick="getApiLinknum(${i + 1})"> Quick View </a>
             </div>
             <div class="block2-txt flex-w flex-t p-t-14">
@@ -667,6 +670,7 @@ function addwishList(wipro) {
     img: wipro.image,
     title: wipro.title,
     price: wipro.price,
+    id : wipro.id,
   };
   wishAryy.push(wishOpject);
 
@@ -674,7 +678,26 @@ function addwishList(wipro) {
 
   location.reload();
 }
-
+// Filter Product
+function filterProduct(val) { 
+  if (val == "All") {
+    document.getElementById("Fashion").style.visibility = "visible";
+    document.getElementById("Patron").style.visibility = "visible";
+    document.getElementById("Childre'n").style.visibility = "visible";
+  } else if (val == "fashion") { 
+    document.getElementById("Fashion").style.visibility = "visible";
+    document.getElementById("Patron").style.visibility = "hidden";
+    document.getElementById("Childre'n").style.visibility = "hidden";
+  }else if (val == "patron") {
+    document.getElementById("Fashion").style.visibility = "hidden";
+    document.getElementById("Patron").style.visibility = "visible";
+    document.getElementById("Childre'n").style.visibility = "hidden";
+  }else if (val == "childre'n") {
+    document.getElementById("Fashion").style.visibility = "hidden";
+    document.getElementById("Patron").style.visibility = "hidden";
+    document.getElementById("Childre'n").style.visibility = "visible";
+  }
+}
 // Blur Website
 let titleDoc = document.title;
 window.onblur = function () {
@@ -683,10 +706,4 @@ window.onblur = function () {
 window.onfocus = function () {
   document.title = titleDoc;
 };
-//End Blur Website
-    window.ononline = function () {
-      window.alert("fuck my");
-    };
-    window.onoffline = function () {
-       window.alert("fuck you");
-    };
+// End Blur Website
